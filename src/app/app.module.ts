@@ -18,12 +18,14 @@ import { provideToastr } from 'ngx-toastr';
 
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
+import { FormularioUsuarioComponent } from './components/formulario-usuario/formulario-usuario.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InicioComponent,
-    LoginComponent
+    LoginComponent,
+    FormularioUsuarioComponent
   ],
   imports: [
     BrowserModule,

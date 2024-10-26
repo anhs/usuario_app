@@ -1,0 +1,55 @@
+<div class="container mt-5">
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow">
+        <h2 class="mb-4 text-center">Registro de Usuario</h2>
+        
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input id="nombre" formControlName="nombre" type="text" class="form-control">
+            <div *ngIf="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched" class="text-danger mt-1">
+                Nombre es requerido.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo:</label>
+            <input id="correo" formControlName="correo" type="email" class="form-control">
+            <div *ngIf="registroForm.get('correo')?.invalid && registroForm.get('correo')?.touched" class="text-danger mt-1">
+                Correo válido es requerido.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección:</label>
+            <input id="direccion" formControlName="direccion" type="text" class="form-control">
+            <div *ngIf="registroForm.get('direccion')?.invalid && registroForm.get('direccion')?.touched" class="text-danger mt-1">
+                Dirección es requerida.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono:</label>
+            <input id="telefono" formControlName="telefono" type="tel" class="form-control">
+            <div *ngIf="registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched" class="text-danger mt-1">
+                Teléfono debe tener 10 dígitos.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="usuario" class="form-label">Usuario:</label>
+            <input id="usuario" formControlName="usuario" type="text" class="form-control">
+            <div *ngIf="registroForm.get('usuario')?.invalid && registroForm.get('usuario')?.touched" class="text-danger mt-1">
+                Usuario es requerido.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="contraseña" class="form-label">Contraseña:</label>
+            <input id="contraseña" formControlName="contraseña" type="password" class="form-control">
+            <div *ngIf="registroForm.get('contraseña')?.invalid && registroForm.get('contraseña')?.touched" class="text-danger mt-1">
+                Contraseña debe tener al menos 6 caracteres.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="registroForm.invalid">Registrar</button>
+    </form>
+</div>

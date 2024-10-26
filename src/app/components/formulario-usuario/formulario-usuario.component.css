@@ -1,0 +1,15 @@
+.container {
+    max-width: 500px;
+}
+
+form {
+    background-color: #f8f9fa;
+}
+
+h2 {
+    color: #007bff;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
