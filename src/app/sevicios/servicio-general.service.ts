@@ -1,8 +1,11 @@
-import { Injectable } from '@angular/core';
+import { ComponentRef, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import * as CryptoJS from 'crypto-js';
+import { ToastrService } from 'ngx-toastr';
+import { Peticion } from "./../interfaces/respuesta_inter";
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +13,12 @@ import * as CryptoJS from 'crypto-js';
 
 export class ServicioGeneralService {
 
-  constructor(private http: HttpClient) { }
+  datosPersonales:any;
+  permisos:Array<string|any> = [];
+
+  constructor(private http: HttpClient,
+              private toastr: ToastrService
+  ) { }
 
   query( peticion:Peticion): Observable<any> {
 
@@ -36,18 +44,11 @@ export class ServicioGeneralService {
     return hash.toString(CryptoJS.enc.Hex);  // Convertir el hash a una cadena hexadecimal
   }
 
+  mensajeServidor(tipo: 'success' | 'error' | 'info' | 'warning', mensaje: string, titulo:string){
+
+        this.toastr[tipo](mensaje, titulo);
+    
+  }
 
 }
 
-
-
-export interface Peticion {
-    ruta?:string,
-    tipo?:string,
-    body:Body
-}
-
-export interface Body{
-  accion:string,
-  data:string
-}

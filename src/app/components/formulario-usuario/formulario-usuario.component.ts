@@ -19,20 +19,31 @@ export class FormularioUsuarioComponent {
       direccion: [''],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
       usuario: ['', Validators.required],
-      contraseña: ['', [Validators.required, Validators.minLength(10)]]
+      contrasena: ['', [Validators.required, Validators.minLength(10)]]
     });
 
   }
 
-  onSubmit() {
+  guardarUsuario() {
 
-    console.log();
     if (this.registroForm.valid) {
-      this.registroForm.value.contraseña = this.request.encriptarContraseña(this.registroForm.value.contraseña)
+      this.registroForm.value.contrasena = this.request.encriptarContraseña(this.registroForm.value.contrasena)
       console.log('Datos del formulario:', this.registroForm.value);
-      // Aquí puedes enviar los datos al servidor
+      this.request.query(
+        {
+          body: {
+            accion: 'guardarUsuario',
+            data: {...{accion:"insert"},...this.registroForm.value}
+          }
+        }
+      ).subscribe((res)=>{
+          const respuesta = res.respuesta  == 0 ? "info": "success";
+          this.request.mensajeServidor(respuesta,res.mensaje,"información");
+          this.registroForm.reset();
+      })
+
     } else {
-      console.log('Formulario no válido');
+      this.request.mensajeServidor("info","Datos incompletos","Información")
     }
   }
 }

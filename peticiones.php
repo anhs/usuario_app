@@ -4,13 +4,8 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-    // Permitir el acceso desde cualquier origen
     header("Access-Control-Allow-Origin: *");
-
-    // Especificar métodos permitidos
     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-
-    // Permitir encabezados específicos
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
     header('Content-Type: application/json');
     header('Access-Control-Allow-Origin: *');
@@ -26,16 +21,22 @@
     switch ($data->accion) {
         case 'usuario':
             $user = new Usuario($conectar);
-            return $user->getPerfiles();
-        
+            return $user->getUsuarios();
+        case 'guardarUsuario':
+            $user = new Usuario($conectar);
+            return $user->registroUsuario($data->data);
+
+        case 'login':
+            $user = new Usuario($conectar);
+            return $user->login($data->data);
         default:
-            json_encode(
+            return json_encode(
                 [
                     "respuesta" => "danger",
                     "mensaje"  => "Accion no definida"
                 ]
             );
-            break;
+
     }
    
 
